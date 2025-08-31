@@ -1,0 +1,28 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Terraform
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform/
+.terraform.lock.hcl
+crash.log
+
+# Ansible
+*.retry
+
+# Kubernetes
+*.crt
+*.key
+*.kubeconfig
+secrets.yaml
+
+# Logs
+*.log
+
+# VS Code / IDE
+.vscode/
+.idea/
+*.swp
