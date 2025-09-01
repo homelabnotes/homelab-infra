@@ -56,4 +56,4 @@ Feedback, suggestions, and contributions are highly welcome! If you spot an erro
 
 ## 📫 Let's Connect
 
--   **Website:** Coming Soon -   **GitHub:** [Your Username](https://github.com/homelabnotes) -   **LinkedIn:** [David Woitzik](https://www.linkedin.com/in/david-woitzik-94b323268/)
+-   **Website:** Coming Soon -   **GitHub:** [HomelabNotes](https://github.com/homelabnotes) -   **LinkedIn:** [David Woitzik](https://www.linkedin.com/in/david-woitzik-94b323268/)
