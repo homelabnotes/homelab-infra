@@ -7,9 +7,8 @@ terraform {
 }
 
 provider "routeros" {
-  hosturl        = "https://10.10.0.1"        
-  username       = "terraform"                        
-  password       = var.terraform_password                            
-  ca_certificate = "/home/david/certs/rb5009.pem" 
-  insecure       = false                          
+  hosturl  = var.mikrotik_host_url
+  username = var.mikrotik_username
+  password = var.mikrotik_password
+  insecure = var.mikrotik_insecure
 }
