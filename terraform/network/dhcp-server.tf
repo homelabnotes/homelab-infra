@@ -25,4 +25,5 @@ resource "routeros_ip_dhcp_server" "defconf" {
   name         = "defconf"
   address_pool = routeros_ip_pool.dhcp.name
   interface    = routeros_interface_bridge.bridge.name
+  disabled = false
 }
