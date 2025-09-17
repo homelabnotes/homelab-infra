@@ -15,7 +15,7 @@ resource "routeros_system_certificate" "local-root-ca-cert" {
 
 resource "routeros_system_certificate" "webfig" {
   name        = "webfig"
-  common_name = "10.10.0.1"
+  common_name = "10.0.0.1"
 
   country      = "DE"
   locality     = "CGN"
@@ -40,9 +40,9 @@ resource "routeros_system_certificate" "webfig" {
 
 import {
   to = routeros_system_certificate.local-root-ca-cert
-  id = "*2"
+  id = "*1"
 }
 import {
   to = routeros_system_certificate.webfig
-  id = "*3"
+  id = "*2"
 }

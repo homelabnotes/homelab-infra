@@ -9,6 +9,6 @@ import {
 }
 resource "routeros_ip_dns_record" "defconf" {
   name    = "router.lan"
-  address = "10.10.0.1"
+  address = "10.0.0.1"
   type    = "A"
 }
