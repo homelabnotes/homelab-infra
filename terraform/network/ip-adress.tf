@@ -15,3 +15,21 @@ import {
 resource "routeros_ip_dhcp_client" "wan" {
   interface = "ether1"
 }
+
+resource "routeros_ip_address" "vlan10" {
+  address   = "10.10.0.1/24"
+  interface = routeros_interface_vlan.vlan10.name
+  network   = "10.10.0.0"
+}
+
+resource "routeros_ip_address" "vlan20" {
+  address   = "10.20.0.1/24"
+  interface = routeros_interface_vlan.vlan20.name
+  network   = "10.20.0.0"
+}
+
+resource "routeros_ip_address" "vlan30" {
+  address   = "10.30.0.1/24"
+  interface = routeros_interface_vlan.vlan30.name
+  network   = "10.30.0.0"
+}

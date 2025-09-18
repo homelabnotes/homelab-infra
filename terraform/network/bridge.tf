@@ -6,6 +6,7 @@ import {
 resource "routeros_interface_bridge" "bridge" {
   name           = "bridge"
   admin_mac      = "DC:2C:6E:45:CD:5F"
+  vlan_filtering = true
 }	
 
 import {
@@ -25,13 +26,13 @@ import {
 
 resource "routeros_interface_bridge_port" "bridge_ports" {
   for_each = {
-    "ether2"       = { comment = "", pvid = "1" }
+    "ether2"       = { comment = "LAN", pvid = "10", }
     "ether3"       = { comment = "", pvid = "1" }
     "ether4"       = { comment = "", pvid = "1" }
-    "ether5"       = { comment = "", pvid = "1" }
+    "ether5"       = { comment = "MGMT", pvid = "1" }
     "ether6"       = { comment = "", pvid = "1" }
-    "ether7"       = { comment = "", pvid = "1" }
-    "ether8"       = { comment = "", pvid = "1" }
+    "ether7"       = { comment = "PROD", pvid = "20" }
+    "ether8"       = { comment = "DMZ", pvid = "30" }
     "sfp-sfpplus1" = { comment = "", pvid = "1" }
   }
   bridge    = routeros_interface_bridge.bridge.name
@@ -39,3 +40,4 @@ resource "routeros_interface_bridge_port" "bridge_ports" {
   comment   = each.value.comment
   pvid      = each.value.pvid
 }
+

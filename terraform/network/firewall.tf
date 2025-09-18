@@ -80,6 +80,44 @@ resource "routeros_ip_firewall_filter" "accept_ipsec_policy_out" {
   ipsec_policy = "out,ipsec"
   place_before = routeros_ip_firewall_filter.fasttrack_connection.id
 }
+resource "routeros_ip_firewall_filter" "allow_vlan20_to_internet" {
+  action             = "accept"
+  chain              = "forward"
+  comment            = "allow VLAN20 to WAN"
+  in_interface_list  = "LAN"
+  src_address        = "10.20.0.0/24"
+  out_interface_list = "WAN"
+  place_before       = routeros_ip_firewall_filter.fasttrack_connection.id
+}
+resource "routeros_ip_firewall_filter" "allow_ssh_lan_to_dmz" {
+  action            = "accept"
+  chain             = "forward"
+  comment           = "allow SSH from LAN to DMZ"
+  in_interface_list = "LAN"
+  out_interface_list = "LAN"
+  src_address       = "10.0.0.0/24"   # LAN-Netz
+  dst_address       = "10.30.0.0/24"  # DMZ-Netz
+  protocol          = "tcp"
+  dst_port          = "22"
+  place_before      = routeros_ip_firewall_filter.allow_vlan30_to_internet.id
+}
+resource "routeros_ip_firewall_filter" "allow_vlan30_to_internet" {
+  action             = "accept"
+  chain              = "forward"
+  comment            = "allow VLAN30 to WAN"
+  in_interface_list  = "LAN"
+  src_address        = "10.30.0.0/24"
+  out_interface_list = "WAN"
+  place_before       = routeros_ip_firewall_filter.fasttrack_connection.id
+}
+resource "routeros_ip_firewall_filter" "drop_vlan30_to_lan" {
+  action      = "drop"
+  chain       = "forward"
+  comment     = "drop VLAN30 to LAN"
+  src_address = "10.30.0.0/24"
+  dst_address = "10.0.0.0/24"
+  place_before = routeros_ip_firewall_filter.fasttrack_connection.id
+}
 resource "routeros_ip_firewall_filter" "fasttrack_connection" {
   action           = "fasttrack-connection"
   chain            = "forward"

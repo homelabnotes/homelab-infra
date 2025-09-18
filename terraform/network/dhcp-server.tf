@@ -27,3 +27,21 @@ resource "routeros_ip_dhcp_server" "defconf" {
   interface    = routeros_interface_bridge.bridge.name
   disabled = false
 }
+
+resource "routeros_ip_pool" "vlan10_pool" {
+  name   = "vlan10-dhcp"
+  ranges = ["10.10.0.10-10.10.0.254"]
+}
+
+resource "routeros_ip_dhcp_server" "vlan10" {
+  name         = "vlan10-dhcp"
+  address_pool = routeros_ip_pool.vlan10_pool.name
+  interface    = routeros_interface_vlan.vlan10.name
+  disabled     = false
+}
+
+resource "routeros_ip_dhcp_server_network" "vlan10" {
+  address    = "10.10.0.0/24"
+  gateway    = "10.10.0.1"
+  dns_server = ["10.10.0.1"]
+}
