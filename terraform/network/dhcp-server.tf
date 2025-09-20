@@ -45,3 +45,21 @@ resource "routeros_ip_dhcp_server_network" "vlan10" {
   gateway    = "10.10.0.1"
   dns_server = ["10.10.0.1"]
 }
+
+resource "routeros_ip_pool" "vlan20_pool" {
+  name   = "vlan20-dhcp"
+  ranges = ["10.20.0.10-10.20.0.254"]
+}
+
+resource "routeros_ip_dhcp_server" "vlan20" {
+  name         = "vlan20-dhcp"
+  address_pool = routeros_ip_pool.vlan20_pool.name
+  interface    = routeros_interface_vlan.vlan20.name
+  disabled     = false
+}
+
+resource "routeros_ip_dhcp_server_network" "vlan20" {
+  address    = "10.20.0.0/24"
+  gateway    = "10.20.0.1"
+  dns_server = ["10.20.0.1"]
+}
