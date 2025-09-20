@@ -1,0 +1,6 @@
+proxmox_url      = "https://10.20.0.10:8006/api2/json"
+proxmox_username = "packer@pam!packer"
+vm_id        = "9999"
+iso_file     = "local:iso/ubuntu-24.04.3-live-server-amd64.iso"
+ssh_username = "dw"
+proxmox_node = "pve"
