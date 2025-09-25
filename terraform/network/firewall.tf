@@ -95,8 +95,8 @@ resource "routeros_ip_firewall_filter" "allow_ssh_lan_to_dmz" {
   comment           = "allow SSH from LAN to DMZ"
   in_interface_list = "LAN"
   out_interface_list = "LAN"
-  src_address       = "10.0.0.0/24"   # LAN-Netz
-  dst_address       = "10.30.0.0/24"  # DMZ-Netz
+  src_address       = "10.0.0.0/24" 
+  dst_address       = "10.30.0.0/24"
   protocol          = "tcp"
   dst_port          = "22"
   place_before      = routeros_ip_firewall_filter.allow_vlan30_to_internet.id

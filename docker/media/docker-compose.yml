@@ -1,0 +1,120 @@
+services:
+
+# ██████╗ ██████╗  ██████╗ ██╗    ██╗██╗      █████╗ ██████╗ ██████╗
+# ██╔══██╗██╔══██╗██╔═══██╗██║    ██║██║     ██╔══██╗██╔══██╗██╔══██╗
+# ██████╔╝██████╔╝██║   ██║██║ █╗ ██║██║     ███████║██████╔╝██████╔╝
+# ██╔═══╝ ██╔══██╗██║   ██║██║███╗██║██║     ██╔══██║██╔══██╗██╔══██╗
+# ██║     ██║  ██║╚██████╔╝╚███╔███╔╝███████╗██║  ██║██║  ██║██║  ██║
+# ╚═╝     ╚═╝  ╚═╝ ╚═════╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═
+
+  prowlarr:
+    image: linuxserver/prowlarr:latest
+    container_name: prowlarr
+    hostname: prowlarr
+    volumes:
+      - ${ARRPATH}Prowlarr/config:/config
+      - ${ARRPATH}Prowlarr/backup:/data/Backup
+      - ${ARRPATH}Downloads:/downloads
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+    env_file:
+      - '.env'
+
+# ███████╗ ██████╗ ███╗   ██╗ █████╗ ██████╗ ██████╗
+# ██╔════╝██╔═══██╗████╗  ██║██╔══██╗██╔══██╗██╔══██╗
+# ███████╗██║   ██║██╔██╗ ██║███████║██████╔╝██████╔╝
+# ╚════██║██║   ██║██║╚██╗██║██╔══██║██╔══██╗██╔══██╗
+# ███████║╚██████╔╝██║ ╚████║██║  ██║██║  ██║██║  ██║
+# ╚══════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
+
+  sonarr:
+    image: linuxserver/sonarr:latest
+    container_name: sonarr
+    hostname: sonarr
+    volumes:
+      - ${ARRPATH}Sonarr/config:/config
+      - ${ARRPATH}Sonarr/backup:/data/Backup
+      - ${ARRPATH}Sonarr/tvshows:/data/tvshows
+      - ${ARRPATH}Downloads:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+    env_file:
+      - '.env'
+
+# ██████╗  █████╗ ██████╗  █████╗ ██████╗ ██████╗
+# ██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗
+# ██████╔╝███████║██║  ██║███████║██████╔╝██████╔╝
+# ██╔══██╗██╔══██║██║  ██║██╔══██║██╔══██╗██╔══██╗
+# ██║  ██║██║  ██║██████╔╝██║  ██║██║  ██║██║  ██║
+# ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
+
+  radarr:
+    image: linuxserver/radarr:latest
+    container_name: radarr
+    hostname: radarr
+    volumes:
+      - ${ARRPATH}Radarr/config:/config
+      - ${ARRPATH}Radarr/movies:/data/movies
+      - ${ARRPATH}Radarr/backup:/data/Backup
+      - ${ARRPATH}Downloads:/downloads
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+    env_file:
+      - '.env'
+
+#      ██╗███████╗██╗     ██╗  ██╗   ██╗███████╗██╗███╗   ██╗
+#      ██║██╔════╝██║     ██║  ╚██╗ ██╔╝██╔════╝██║████╗  ██║
+#      ██║█████╗  ██║     ██║   ╚████╔╝ █████╗  ██║██╔██╗ ██║
+# ██   ██║██╔══╝  ██║     ██║    ╚██╔╝  ██╔══╝  ██║██║╚██╗██║
+# ╚█████╔╝███████╗███████╗███████╗██║   ██║     ██║██║ ╚████║
+#  ╚════╝ ╚══════╝╚══════╝╚══════╝╚═╝   ╚═╝     ╚═╝╚═╝  ╚═══╝
+
+  jellyfin:
+    image: linuxserver/jellyfin
+    container_name: jellyfin
+    ports:
+      - '8096:8096/tcp'   
+      - '7359:7359/udp'   
+      - '1900:1900/udp'   
+    volumes:
+      - ${ARRPATH}Jellyfin/config:/config
+      - ${ARRPATH}Radarr/movies:/data/Movies
+      - ${ARRPATH}Sonarr/tvshows:/data/TVShows
+      - ${ARRPATH}Lidarr/music:/data/Music
+    env_file:
+      - '.env'
+    devices:
+      - /dev/dri:/dev/dri
+    restart: unless-stopped
+
+#  ██████╗ ██████╗ ██╗████████╗████████╗ ██████╗ ██████╗ ██████╗ ███████╗███╗   ██╗████████╗
+# ██╔═══██╗██╔══██╗██║╚══██╔══╝╚══██╔══╝██╔═══██╗██╔══██╗██╔══██╗██╔════╝████╗  ██║╚══██╔══╝
+# ██║   ██║██████╔╝██║   ██║      ██║   ██║   ██║██████╔╝██████╔╝█████╗  ██╔██╗ ██║   ██║
+# ██║▄▄ ██║██╔══██╗██║   ██║      ██║   ██║   ██║██╔══██╗██╔══██╗██╔══╝  ██║╚██╗██║   ██║
+# ╚██████╔╝██████╔╝██║   ██║      ██║   ╚██████╔╝██║  ██║██║  ██║███████╗██║ ╚████║   ██║
+#  ╚══▀▀═╝ ╚═════╝ ╚═╝   ╚═╝      ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝                               
+
+  qbittorrent:
+    image: linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    hostname: qbittorrent
+    restart: unless-stopped
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
+    volumes:
+      - ${ARRPATH}qbittorrent/config:/config
+      - ${ARRPATH}Downloads:/downloads
+    ports:
+      - 8080:8080
+      - 6881:6881
+      - 6881:6881/udp
+    environment:
+      - WEBUI_PORT=8080
+      - TORRENTING_PORT=6881
+    healthcheck:
+      start_period: 15s
+    env_file:
+      - '.env'

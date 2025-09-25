@@ -1,0 +1,31 @@
+services:
+  pihole-unbound:
+    container_name: pihole-unbound
+    image: mpgirro/pihole-unbound:latest
+    hostname: rpi4
+    domainname: woitzik.dev
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 80:80/tcp
+    environment:
+      - FTLCONF_LOCAL_IPV4=10.20.0.11
+      - TZ=Europe/Berlin
+      - FTLCONF_webserver_interface_theme=default-darker
+      - REV_SERVER=true
+      - REV_SERVER_TARGET=10.20.0.1
+      - REV_SERVER_DOMAIN=lan
+      - REV_SERVER_CIDR=10.0.0.0/8
+      - FTLCONF_dns_revServers=true,10.0.0.0/8,10.20.0.1,lan
+      - FTLCONF_dns_upstreams=127.0.0.1#5335
+      - FTLCONF_dns_dnssec="true"
+      - FTLCONF_dns_listeningMode=single
+      - FTLCONF_webserver_port=80
+    volumes:
+      - etc_pihole-unbound:/etc/pihole:rw
+      - etc_pihole_dnsmasq-unbound:/etc/dnsmasq.d:rw
+    restart: unless-stopped
+
+volumes:
+  etc_pihole-unbound:
+  etc_pihole_dnsmasq-unbound:
