@@ -31,8 +31,8 @@ resource "routeros_interface_bridge_port" "bridge_ports" {
     "ether4"       = { comment = "", pvid = "1" }
     "ether5"       = { comment = "MGMT", pvid = "1" }
     "ether6"       = { comment = "", pvid = "1" }
-    "ether7"       = { comment = "PROD", pvid = "20" }
-    "ether8"       = { comment = "DMZ", pvid = "30" }
+    "ether7"       = { comment = "TRUNK", pvid = "1" }
+    "ether8"       = { comment = "TRUNK", pvid = "1" }
     "sfp-sfpplus1" = { comment = "", pvid = "1" }
   }
   bridge    = routeros_interface_bridge.bridge.name

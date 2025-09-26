@@ -27,3 +27,15 @@ resource "routeros_interface_vlan" "vlan30" {
   vlan_id   = 30
   interface = routeros_interface_bridge.bridge.name
 }
+
+resource "routeros_interface_bridge_vlan" "trunk_ports" {
+  for_each = {
+    "vlan20" = { vlan_id = 20, tagged = ["ether7","ether8"], untagged = [] }
+    "vlan30" = { vlan_id = 30, tagged = ["ether7","ether8"], untagged = [] }
+  }
+
+  bridge   = routeros_interface_bridge.bridge.name
+  vlan_ids = [each.value.vlan_id]
+  tagged   = each.value.tagged
+  untagged = each.value.untagged
+}
