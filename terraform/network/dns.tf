@@ -1,6 +1,6 @@
 resource "routeros_dns" "dns-server" {
   allow_remote_requests = true
-  servers = [ "192.168.178.3", "1.1.1.1" ]
+  servers               = ["8.8.8.8", "1.1.1.1"]
 }
 
 import {

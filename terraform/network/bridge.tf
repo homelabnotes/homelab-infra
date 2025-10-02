@@ -7,7 +7,7 @@ resource "routeros_interface_bridge" "bridge" {
   name           = "bridge"
   admin_mac      = "DC:2C:6E:45:CD:5F"
   vlan_filtering = true
-}	
+}
 
 import {
   for_each = {

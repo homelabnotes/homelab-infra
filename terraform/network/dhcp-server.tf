@@ -1,6 +1,6 @@
 import {
-    to = routeros_ip_pool.dhcp
-    id = "*1"
+  to = routeros_ip_pool.dhcp
+  id = "*1"
 }
 resource "routeros_ip_pool" "dhcp" {
   name   = "default-dhcp"
@@ -8,8 +8,8 @@ resource "routeros_ip_pool" "dhcp" {
 }
 
 import {
-    to = routeros_ip_dhcp_server_network.dhcp
-    id = "*1"
+  to = routeros_ip_dhcp_server_network.dhcp
+  id = "*1"
 }
 resource "routeros_ip_dhcp_server_network" "dhcp" {
   address    = "10.0.0.0/24"
@@ -18,14 +18,14 @@ resource "routeros_ip_dhcp_server_network" "dhcp" {
 }
 
 import {
-    to = routeros_ip_dhcp_server.defconf
-    id = "*1"
+  to = routeros_ip_dhcp_server.defconf
+  id = "*1"
 }
 resource "routeros_ip_dhcp_server" "defconf" {
   name         = "defconf"
   address_pool = routeros_ip_pool.dhcp.name
   interface    = routeros_interface_bridge.bridge.name
-  disabled = false
+  disabled     = false
 }
 
 resource "routeros_ip_pool" "vlan10_pool" {
