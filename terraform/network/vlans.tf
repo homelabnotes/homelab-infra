@@ -41,7 +41,7 @@ resource "routeros_interface_bridge_vlan" "vlan20" {
   tagged = [
     routeros_interface_bridge.bridge.name
   ]
-  untagged = ["ether7", "ether8"]
+  untagged = ["ether7"]
 }
 
 resource "routeros_interface_bridge_vlan" "vlan30" {
@@ -49,8 +49,7 @@ resource "routeros_interface_bridge_vlan" "vlan30" {
   vlan_ids = [30]
   tagged = [
     routeros_interface_bridge.bridge.name,
-    "ether8",
     "ether7"
   ]
-  untagged = []
+  untagged = ["ether8"]
 }
