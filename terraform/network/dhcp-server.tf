@@ -43,7 +43,7 @@ resource "routeros_ip_dhcp_server" "vlan10" {
 resource "routeros_ip_dhcp_server_network" "vlan10" {
   address    = "10.10.0.0/24"
   gateway    = "10.10.0.1"
-  dns_server = ["10.10.0.1"]
+  dns_server = ["10.30.0.2", "1.1.1.1"]
 }
 
 resource "routeros_ip_pool" "vlan20_pool" {
@@ -61,5 +61,5 @@ resource "routeros_ip_dhcp_server" "vlan20" {
 resource "routeros_ip_dhcp_server_network" "vlan20" {
   address    = "10.20.0.0/24"
   gateway    = "10.20.0.1"
-  dns_server = ["10.20.0.1"]
+  dns_server = ["10.30.0.2", "1.1.1.1"]
 }
